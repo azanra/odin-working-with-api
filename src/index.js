@@ -1,10 +1,11 @@
 import "./style.css";
 
 const fetchBtn = document.querySelector("#fetchBtn");
+const inputKeyword = document.querySelector("#inputKeyword");
 
-const fetchImg = () => {
+const fetchImg = (keyword) => {
   const API_KEY = "HKEgwNAllg1pMBaj1wooNdWXXGKDzbdX";
-  const API = `https://api.giphy.com/v1/gifs/translate?api_key=${API_KEY}&s=cats`;
+  const API = `https://api.giphy.com/v1/gifs/translate?api_key=${API_KEY}&s=${keyword}`;
   const img = document.querySelector("img");
   fetch(API)
     .then((response) => {
@@ -20,12 +21,14 @@ const fetchImg = () => {
     })
     .catch((error) => {
       console.log(error);
+      fetchBtn.disabled = false;
     });
 };
 
 fetchBtn.addEventListener("click", () => {
   fetchBtn.disabled = true;
-  fetchImg();
+  const keyword = inputKeyword.value;
+  if (keyword) fetchImg(keyword);
 });
 
-fetchImg();
+fetchImg("cats");
