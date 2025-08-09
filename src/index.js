@@ -1,8 +1,23 @@
 import "./style.css";
-import img from "./asset/resource/img.png";
 
-console.log("Hello world!");
-const paraElement = document.querySelector("p");
-const imgElement = document.createElement("img");
-imgElement.src = img;
-paraElement.appendChild(imgElement);
+const fetchImg = () => {
+  const API_KEY = "HKEgwNAllg1pMBaj1wooNdWXXGKDzbdX";
+  const API = `https://api.giphy.com/v1/gifs/translate?api_key=${API_KEY}&s=cats`;
+  const img = document.querySelector("img");
+  fetch(API)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Failed fetch: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((result) => {
+      console.log(result);
+      img.src = result.data.images.original.url;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+fetchImg();
