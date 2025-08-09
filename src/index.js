@@ -28,7 +28,11 @@ const fetchImg = (keyword) => {
 fetchBtn.addEventListener("click", () => {
   fetchBtn.disabled = true;
   const keyword = inputKeyword.value;
-  if (keyword) fetchImg(keyword);
+  if (keyword) {
+    fetchImg(keyword);
+  } else {
+    fetchBtn.disabled = false;
+  }
 });
 
 fetchImg("cats");
