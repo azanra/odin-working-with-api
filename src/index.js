@@ -2,6 +2,7 @@ import "./style.css";
 
 const fetchBtn = document.querySelector("#fetchBtn");
 const inputKeyword = document.querySelector("#inputKeyword");
+const errorMsg = document.querySelector("#errorMsg");
 
 const fetchImg = (keyword) => {
   const API_KEY = "HKEgwNAllg1pMBaj1wooNdWXXGKDzbdX";
@@ -25,13 +26,21 @@ const fetchImg = (keyword) => {
     });
 };
 
+const removeErrorMsg = () => {
+  setTimeout(() => {
+    errorMsg.textContent = "";
+  }, 3000);
+};
+
 fetchBtn.addEventListener("click", () => {
   fetchBtn.disabled = true;
   const keyword = inputKeyword.value;
   if (keyword) {
     fetchImg(keyword);
   } else {
+    errorMsg.textContent = "Please enter a search keyword";
     fetchBtn.disabled = false;
+    removeErrorMsg();
   }
 });
 
