@@ -3,11 +3,11 @@ import "./style.css";
 const fetchBtn = document.querySelector("#fetchBtn");
 const inputKeyword = document.querySelector("#inputKeyword");
 const errorMsg = document.querySelector("#errorMsg");
+const img = document.querySelector("img");
 
 const fetchImg = (keyword) => {
   const API_KEY = "HKEgwNAllg1pMBaj1wooNdWXXGKDzbdX";
   const API = `https://api.giphy.com/v1/gifs/translate?api_key=${API_KEY}&s=${keyword}`;
-  const img = document.querySelector("img");
   fetch(API)
     .then((response) => {
       if (!response.ok) {
@@ -17,13 +17,23 @@ const fetchImg = (keyword) => {
     })
     .then((result) => {
       console.log(result);
-      img.src = result.data.images.original.url;
+      if (result.data && result.data.length === 0) {
+        imgIsEmpty();
+      } else {
+        img.src = result.data.images.original.url;
+      }
       fetchBtn.disabled = false;
     })
     .catch((error) => {
       console.log(error);
       fetchBtn.disabled = false;
     });
+};
+
+const imgIsEmpty = () => {
+  errorMsg.textContent = "Search keyword is empty";
+  img.src = "#";
+  removeErrorMsg();
 };
 
 const removeErrorMsg = () => {
