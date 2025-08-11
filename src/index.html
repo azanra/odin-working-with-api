@@ -7,20 +7,22 @@
   </head>
   <body>
     <div class="container">
-      <div class="imgContainer">
-        <img src="#" alt="" />
-      </div>
-      <div class="inputContainer">
-        <input
-          type="text"
-          name="keyword"
-          id="inputKeyword"
-          placeholder="Enter search keyword..."
-        />
-        <button id="fetchBtn">Fetch New Images</button>
-      </div>
       <div>
-        <span id="errorMsg"></span>
+        <div class="inputContainer">
+          <input
+            type="text"
+            name="keyword"
+            id="inputKeyword"
+            placeholder="Enter search keyword..."
+          />
+          <button id="fetchBtn">Fetch New Images</button>
+          <div>
+            <span id="errorMsg"></span>
+          </div>
+        </div>
+        <div class="imgContainer">
+          <img src="#" alt="" />
+        </div>
       </div>
     </div>
   </body>
