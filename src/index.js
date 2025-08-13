@@ -5,29 +5,23 @@ const inputKeyword = document.querySelector("#inputKeyword");
 const errorMsg = document.querySelector("#errorMsg");
 const img = document.querySelector("img");
 
-const fetchImg = (keyword) => {
-  const API_KEY = "HKEgwNAllg1pMBaj1wooNdWXXGKDzbdX";
-  const API = `https://api.giphy.com/v1/gifs/translate?api_key=${API_KEY}&s=${keyword}`;
-  fetch(API)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`Failed fetch: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then((result) => {
-      console.log(result);
-      if (result.data && result.data.length === 0) {
-        imgIsEmpty();
-      } else {
-        img.src = result.data.images.original.url;
-      }
-      fetchBtn.disabled = false;
-    })
-    .catch((error) => {
-      console.log(error);
-      fetchBtn.disabled = false;
-    });
+const fetchImg = async (keyword) => {
+  try {
+    const API_KEY = "HKEgwNAllg1pMBaj1wooNdWXXGKDzbdX";
+    const API = `https://api.giphy.com/v1/gifs/translate?api_key=${API_KEY}&s=${keyword}`;
+    const response = await fetch(API);
+    const result = await response.json();
+    console.log(result);
+    if (result.data && result.data.length === 0) {
+      imgIsEmpty();
+    } else {
+      img.src = result.data.images.original.url;
+    }
+    fetchBtn.disabled = false;
+  } catch (error) {
+    console.log(error);
+    fetchBtn.disabled = false;
+  }
 };
 
 const imgIsEmpty = () => {
